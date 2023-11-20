@@ -9,65 +9,39 @@ export const formatDate = (hours: number, minutes: number) => {
     return `${fHours}:${fMinutes}`;
 };
 
-export const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-];
+export const getHoursPosition = (hours: number, minutes: number): number => {
+    hours = hours > 12 ? hours - 12 : hours;
+    return hours * 30 + minutes * 0.5;
+};
 
-export const weeks = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-];
+export interface IOffsets {
+    [key: string]: string;
+}
 
-export const mockdata = {
-    Fajr: {
-        hours: 5,
-        minutes: 10,
-    },
-    Dhuhr: {
-        hours: 11,
-        minutes: 40,
-    },
-    Asr: {
-        hours: 14,
-        minutes: 5,
-    },
-    Maghrib: {
-        hours: 16,
-        minutes: 29,
-    },
-    Isha: {
-        hours: 17,
-        minutes: 46,
-    },
+export const defaultOffsets: IOffsets = {
+    Fajr: "0",
+    Dhuhr: "0",
+    Asr: "0",
+    Maghrib: "0",
+    Isha: "0",
+};
+export const getOffsetsFromStorage = () => {
+    const result = localStorage.getItem("offsets");
+    return result ? JSON.parse(result) : defaultOffsets;
+};
+export const saveOffsetsToStorage = (offsets: IOffsets) => {
+    localStorage.setItem("offsets", JSON.stringify(offsets));
+};
+export const getTuneString = (offsets: IOffsets) => {
+    const Fajr = 12 + (Number(offsets.Fajr) || 0);
+    const Dhuhr = 4 + (Number(offsets.Dhuhr) || 0);
+    const Asr = 1 + (Number(offsets.Asr) || 0);
+    const Maghrib = 4 + (Number(offsets.Maghrib) || 0);
+    const Isha = -8 + (Number(offsets.Isha) || 0);
+
+    return `8,${Fajr},-2,${Dhuhr},${Asr},${Maghrib},0,${Isha},-3`;
 };
 
 export const primaryColor = "#00B489";
 // export const primaryColor = "#CD201F";
-
-export interface IOffsets {
-    [key: string]: number;
-}
-
-export const initialOffsets: IOffsets = {
-    Fajr: 0,
-    Dhuhr: 0,
-    Asr: 0,
-    Maghrib: 0,
-    Isha: 0,
-};
+export const bgColor = "#1B1B1F";

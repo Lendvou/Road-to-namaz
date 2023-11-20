@@ -1,6 +1,6 @@
 export default {
-    name: "NamaZ",
-    short_name: "namaz",
+    name: "Road to namaz",
+    short_name: "Road to namaz",
     description: "Desc",
     theme_color: "#00B489",
     background_color: "#1B1B1F",
@@ -8,4 +8,30 @@ export default {
     scope: "/",
     start_url: "/",
     orientation: "portrait",
+    icons: [
+        {
+            src: "./icons/manifest-icon-192.maskable.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
+        },
+        {
+            src: "./icons/manifest-icon-192.maskable.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+        },
+        {
+            src: "./icons/manifest-icon-512.maskable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+        },
+        {
+            src: "./icons/manifest-icon-512.maskable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+        },
+    ],
 };

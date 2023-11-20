@@ -8,6 +8,9 @@ export const useTimeStyles = createUseStyles({
         display: "flex",
         alignItems: "center",
         fontFamily: "Montserrat-semibold",
+        "@media (min-width: 576px)": {
+            fontSize: "3.5rem",
+        },
     },
     timeValue: {
         display: "flex",
@@ -20,6 +23,9 @@ export const useTimeStyles = createUseStyles({
         width: "2.3rem",
         display: "flex",
         justifyContent: "center",
+        "@media (min-width: 576px)": {
+            width: "2.8rem",
+        },
     },
     colon: {
         margin: "0 4px",

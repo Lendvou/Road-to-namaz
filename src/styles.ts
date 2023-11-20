@@ -1,10 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { primaryColor } from "./utils";
-
-export const getHoursPosition = (hours: number, minutes: number): number => {
-    hours = hours > 12 ? hours - 12 : hours;
-    return hours * 30 + minutes * 0.5;
-};
+import { bgColor, primaryColor } from "./utils";
 
 type StyleProps = {
     hours: number;
@@ -16,7 +11,7 @@ export const useStyles = createUseStyles<string, StyleProps>({
     container: {
         paddingTop: "2rem",
         paddingBottom: "2rem",
-        backgroundColor: "#1B1B1F",
+        backgroundColor: bgColor,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
@@ -25,6 +20,12 @@ export const useStyles = createUseStyles<string, StyleProps>({
         width: "100vw",
         color: "white",
         overflow: "hidden",
+    },
+    settingsButton: {
+        position: "absolute",
+        top: "2%",
+        right: "4%",
+        width: "24px",
     },
     currentDay: {
         display: "flex",
@@ -38,6 +39,9 @@ export const useStyles = createUseStyles<string, StyleProps>({
         fontSize: "1.5rem",
         marginBottom: 4,
         fontFamily: "Montserrat-semibold",
+        "@media (min-width: 576px)": {
+            fontSize: "1.8rem",
+        },
         "& > span": {
             marginRight: 5,
             marginLeft: 5,
@@ -45,11 +49,26 @@ export const useStyles = createUseStyles<string, StyleProps>({
     },
     weekDay: {
         fontSize: "1rem",
+        "@media (min-width: 576px)": {
+            fontSize: "1.3rem",
+        },
     },
     clock: {
         width: "70%",
         position: "relative",
         margin: "0 auto 140px",
+        "@media (min-width: 576px)": {
+            width: "60%",
+        },
+        "@media (min-width: 768px)": {
+            width: "40%",
+        },
+        "@media (min-width: 1280px)": {
+            width: "30%",
+        },
+        "@media (min-width: 1400px)": {
+            width: "20%",
+        },
     },
     clockImg: {
         width: "100%",
@@ -95,14 +114,7 @@ export const useStyles = createUseStyles<string, StyleProps>({
         top: "-20%",
         left: "40%",
         height: "138%",
-        width: 60,
-        // "&:before": {
-        //     content: '" "',
-        //     height: "100%",
-        //     width: 2,
-        //     backgroundColor: primaryColor,
-        //     zIndex: 4,
-        // },
+        // width: 60,
     },
     clockNamazItem: {
         display: "flex",
@@ -111,5 +123,8 @@ export const useStyles = createUseStyles<string, StyleProps>({
         color: primaryColor,
         fontFamily: "Montserrat-semibold",
         fontSize: "1rem",
+        "@media (min-width: 576px)": {
+            fontSize: "1.5rem",
+        },
     },
 });

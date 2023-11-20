@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import clockLogo from "./assets/images/Clock_12-59.svg";
-import { getHoursPosition, useStyles } from "./styles";
-import { IOffsets, formatDate, initialOffsets, transformDate } from "./utils";
+import {
+    getHoursPosition,
+    getOffsetsFromStorage,
+    getTuneString,
+    saveOffsetsToStorage,
+} from "./utils";
+import { useStyles } from "./styles";
+import { IOffsets, formatDate, transformDate } from "./utils";
 import { Time } from "./components/Time";
 import { Loader } from "./components/Loader";
+import { SettingsModal } from "./components/SettingsModal";
 
 interface INamaz {
     [key: string]: {
@@ -26,8 +33,13 @@ function App() {
     const [hours, setHours] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
     const [seconds, setSeconds] = useState<number>(0);
-    const [offsets] = useState<IOffsets>(initialOffsets);
+    const [offsets, setOffsets] = useState<IOffsets>(getOffsetsFromStorage());
     const [fetchResult, setFetchResult] = useState<IFetchResult | null>(null);
+
+    const handleOffsetsChange = (newOffsets: IOffsets) => {
+        setOffsets(newOffsets);
+        saveOffsetsToStorage(newOffsets);
+    };
 
     useEffect(() => {
         const setTime = () => {
@@ -46,15 +58,13 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const tuneString = `8,${12 + offsets.Fajr},-2,${
-                5 + offsets.Dhuhr
-            },${0 + offsets.Asr},${5 + offsets.Maghrib},0,${
-                -8 + offsets.Isha
-            },-3`;
+            const tuneString = getTuneString(offsets);
 
             const { data } = await (
                 await fetch(
-                    `https://api.aladhan.com/v1/timingsByAddress?address=Makhachkala,RU&method=8&tune=${tuneString}`
+                    `https://api.aladhan.com/v1/timingsByAddress?address=${
+                        import.meta.env.VITE_DEFAULT_REGION
+                    }&method=8&tune=${tuneString}`
                 )
             ).json();
             const result = {
@@ -83,7 +93,6 @@ function App() {
         minutes,
         seconds,
     });
-    // console.log("rerender", fetchResult);
 
     if (!fetchResult) {
         return (
@@ -96,6 +105,8 @@ function App() {
     const { date, timings } = fetchResult;
     return (
         <div className={styles.container}>
+            <SettingsModal offsets={offsets} onSave={handleOffsetsChange} />
+
             <div className={styles.currentDay}>
                 <div className={styles.day}>
                     <span>{date.month}</span>
