@@ -62,9 +62,7 @@ function App() {
 
             const { data } = await (
                 await fetch(
-                    `https://api.aladhan.com/v1/timingsByAddress?address=${
-                        import.meta.env.VITE_DEFAULT_REGION
-                    }&method=8&tune=${tuneString}`
+                    `https://api.aladhan.com/v1/timingsByAddress?address=Makhachkala,RU&method=8&tune=${tuneString}`
                 )
             ).json();
             const result = {
