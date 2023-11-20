@@ -83,7 +83,6 @@ function App() {
                 timings: result,
                 date: dateObj,
             });
-            console.log("data", data);
         };
         fetchData();
     }, [offsets]);
