@@ -2,12 +2,6 @@ import { createUseStyles } from "react-jss";
 import { primaryColor } from "../../utils";
 
 export const useLoadertyles = createUseStyles({
-    // loaderWrapper: {
-    //     width: '100vw',
-    //     height: '100vh',
-    //     position: 'fixed',
-
-    // },
     loader: {
         width: 48,
         height: 48,

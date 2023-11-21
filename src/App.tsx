@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
-import clockLogo from "./assets/images/Clock_12-59.svg";
 import {
-    getHoursPosition,
     getOffsetsFromStorage,
     getTuneString,
     saveOffsetsToStorage,
 } from "./utils";
 import { useStyles } from "./styles";
-import { IOffsets, formatDate, transformDate } from "./utils";
+import { IOffsets, transformDate } from "./utils";
 import { Time } from "./components/Time";
 import { Loader } from "./components/Loader";
 import { SettingsModal } from "./components/SettingsModal";
+import { Clock } from "./components/Clock";
+import { Header } from "./components/Header";
+import { InstallButton } from "./components/InstallButton";
 
-interface INamaz {
+export interface ITimings {
     [key: string]: {
         hours: number;
         minutes: number;
     };
 }
-interface IDate {
+export interface IDate {
     day?: number;
     weekday?: string;
     month?: string;
 }
 
 interface IFetchResult {
-    timings: INamaz;
+    timings: ITimings;
     date: IDate;
 }
 
@@ -91,102 +92,37 @@ function App() {
             e.preventDefault();
             setInstallEvent(e);
         });
+        window.addEventListener("appinstalled", () => {
+            setInstallEvent(null);
+        });
     }, []);
 
-    const styles = useStyles({
-        hours,
-        minutes,
-        seconds,
-    });
-
-    if (!fetchResult) {
-        return (
-            <div className={styles.container}>
-                <Loader />
-            </div>
-        );
-    }
-
-    const { date, timings } = fetchResult;
+    const styles = useStyles();
     return (
         <div className={styles.container}>
-            {installEvent &&
-            !window.matchMedia("(display-mode: standalone)").matches ? (
-                <button
-                    className={styles.installButton}
-                    onClick={() => (installEvent as any).prompt()}
-                >
-                    Install
-                </button>
-            ) : null}
-            <SettingsModal offsets={offsets} onSave={handleOffsetsChange} />
+            {!fetchResult ? (
+                <Loader />
+            ) : (
+                <>
+                    <InstallButton installEvent={installEvent} />
 
-            <div className={styles.currentDay}>
-                <div className={styles.day}>
-                    <span>{date.month}</span>
-                    <span>{date.day}</span>
-                </div>
-                <span className={styles.weekDay}>{date.weekday}</span>
-            </div>
+                    <SettingsModal
+                        offsets={offsets}
+                        onSave={handleOffsetsChange}
+                    />
 
-            <div className={styles.clock}>
-                <img src={clockLogo} alt="clock" className={styles.clockImg} />
-                <div className={styles.dot}></div>
-                <div
-                    className={styles.pointerWrapper}
-                    style={{
-                        transform: `rotate(${getHoursPosition(
-                            hours,
-                            minutes
-                        )}deg)`,
-                    }}
-                >
-                    <div className={styles.clockHourPointer}></div>
-                </div>
-                <div
-                    className={styles.pointerWrapper}
-                    style={{ transform: `rotate(${minutes * 6}deg)` }}
-                >
-                    <div className={styles.clockMinutePointer}></div>
-                </div>
-                <div
-                    className={styles.pointerWrapper}
-                    style={{ transform: `rotate(${seconds * 6}deg)` }}
-                >
-                    <div className={styles.clockSecondsPointer}></div>
-                </div>
+                    <Header date={fetchResult.date} />
 
-                {Object.entries(timings).map(([key, value]) => (
-                    <div
-                        key={key}
-                        className={styles.clockNamaz}
-                        style={{
-                            transform: `rotate(${getHoursPosition(
-                                value.hours,
-                                value.minutes
-                            )}deg)`,
-                        }}
-                    >
-                        <div
-                            className={styles.clockNamazItem}
-                            style={{
-                                transform: `rotate(-${getHoursPosition(
-                                    value.hours,
-                                    value.minutes
-                                )}deg)`,
-                                opacity: key === "Fajr" ? 0.2 : 1,
-                            }}
-                        >
-                            <span>{key}</span>
-                            <span>
-                                {formatDate(value.hours, value.minutes)}
-                            </span>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    <Clock
+                        hours={hours}
+                        minutes={minutes}
+                        seconds={seconds}
+                        timings={fetchResult.timings}
+                    />
 
-            <Time hours={hours} minutes={minutes} seconds={seconds} />
+                    <Time hours={hours} minutes={minutes} seconds={seconds} />
+                </>
+            )}
         </div>
     );
 }

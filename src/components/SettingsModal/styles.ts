@@ -11,11 +11,10 @@ export const useModalStyles = createUseStyles({
         cursor: "pointer",
     },
     modal: {
-        // borderRadius: 4,
         backgroundColor: bgColor,
         color: "white",
         width: "80%",
-        borderRadius: 4,
+        borderRadius: 6,
     },
     closeButton: {
         marginTop: 8,
