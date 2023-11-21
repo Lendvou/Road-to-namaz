@@ -5,7 +5,6 @@ import manifest from "./public/manifest";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: "/Road-to-namaz/",
     plugins: [
         react(),
         VitePWA({
