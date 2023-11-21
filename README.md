@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# PWA React + TypeScript + Vite
 
 ### [https://sparkly-piroshki-e131cf.netlify.app/](https://sparkly-piroshki-e131cf.netlify.app/)
 
