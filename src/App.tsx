@@ -88,7 +88,6 @@ function App() {
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e) => {
-            console.log("before install", e);
             e.preventDefault();
             setInstallEvent(e);
         });
@@ -111,7 +110,8 @@ function App() {
     const { date, timings } = fetchResult;
     return (
         <div className={styles.container}>
-            {installEvent ? (
+            {installEvent &&
+            !window.matchMedia("(display-mode: standalone)").matches ? (
                 <button
                     className={styles.installButton}
                     onClick={() => (installEvent as any).prompt()}
