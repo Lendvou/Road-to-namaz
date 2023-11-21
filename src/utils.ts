@@ -36,8 +36,8 @@ export const getTuneString = (offsets: IOffsets) => {
     const Fajr = 12 + (Number(offsets.Fajr) || 0);
     const Dhuhr = 4 + (Number(offsets.Dhuhr) || 0);
     const Asr = 1 + (Number(offsets.Asr) || 0);
-    const Maghrib = 4 + (Number(offsets.Maghrib) || 0);
-    const Isha = -8 + (Number(offsets.Isha) || 0);
+    const Maghrib = 5 + (Number(offsets.Maghrib) || 0);
+    const Isha = -7 + (Number(offsets.Isha) || 0);
 
     return `8,${Fajr},-2,${Dhuhr},${Asr},${Maghrib},0,${Isha},-3`;
 };
