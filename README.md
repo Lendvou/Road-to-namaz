@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+## [https://lendvou.github.io/Road-to-namaz/](https://lendvou.github.io/Road-to-namaz/)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
