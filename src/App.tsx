@@ -35,6 +35,7 @@ function App() {
     const [seconds, setSeconds] = useState<number>(0);
     const [offsets, setOffsets] = useState<IOffsets>(getOffsetsFromStorage());
     const [fetchResult, setFetchResult] = useState<IFetchResult | null>(null);
+    const [installEvent, setInstallEvent] = useState<Event | null>(null);
 
     const handleOffsetsChange = (newOffsets: IOffsets) => {
         setOffsets(newOffsets);
@@ -85,6 +86,14 @@ function App() {
         fetchData();
     }, [offsets]);
 
+    useEffect(() => {
+        window.addEventListener("beforeinstallprompt", (e) => {
+            console.log("before install", e);
+            e.preventDefault();
+            setInstallEvent(e);
+        });
+    }, []);
+
     const styles = useStyles({
         hours,
         minutes,
@@ -102,6 +111,14 @@ function App() {
     const { date, timings } = fetchResult;
     return (
         <div className={styles.container}>
+            {installEvent ? (
+                <button
+                    className={styles.installButton}
+                    onClick={() => (installEvent as any).prompt()}
+                >
+                    Install
+                </button>
+            ) : null}
             <SettingsModal offsets={offsets} onSave={handleOffsetsChange} />
 
             <div className={styles.currentDay}>
