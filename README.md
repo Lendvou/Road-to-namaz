@@ -1,6 +1,6 @@
 # React + TypeScript + Vite
 
-## [https://lendvou.github.io/Road-to-namaz/](https://lendvou.github.io/Road-to-namaz/)
+### [[https://lendvou.github.io/Road-to-namaz/](https://sparkly-piroshki-e131cf.netlify.app/)]([https://lendvou.github.io/Road-to-namaz/](https://sparkly-piroshki-e131cf.netlify.app/))
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
