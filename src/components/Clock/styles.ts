@@ -43,13 +43,13 @@ export const useClockStyles = createUseStyles({
         alignItems: "center",
     },
     clockHourPointer: {
-        width: "75%",
-        height: "60%",
+        width: "80%",
+        height: "55%",
         background: "linear-gradient(0deg, transparent 50%, white 50%)",
     },
     clockMinutePointer: {
         width: "45%",
-        height: "70%",
+        height: "75%",
         background: "linear-gradient(0deg, transparent 50%, white 50%)",
     },
     clockSecondsPointer: {
