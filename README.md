@@ -1,6 +1,6 @@
 # PWA React + TypeScript + Vite
 
-### [https://sparkly-piroshki-e131cf.netlify.app/](https://sparkly-piroshki-e131cf.netlify.app/)
+### [https://road-no-namaz.netlify.app](https://road-no-namaz.netlify.app)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
