@@ -36,7 +36,6 @@ function App() {
     const [seconds, setSeconds] = useState<number>(0);
     const [offsets, setOffsets] = useState<IOffsets>(getOffsetsFromStorage());
     const [fetchResult, setFetchResult] = useState<IFetchResult | null>(null);
-    const [installEvent, setInstallEvent] = useState<Event | null>(null);
 
     const handleOffsetsChange = (newOffsets: IOffsets) => {
         setOffsets(newOffsets);
@@ -87,25 +86,15 @@ function App() {
         fetchData();
     }, [offsets]);
 
-    useEffect(() => {
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            setInstallEvent(e);
-        });
-        window.addEventListener("appinstalled", () => {
-            setInstallEvent(null);
-        });
-    }, []);
-
     const styles = useStyles();
     return (
         <div className={styles.container}>
+            <InstallButton />
+
             {!fetchResult ? (
                 <Loader />
             ) : (
                 <>
-                    <InstallButton installEvent={installEvent} />
-
                     <SettingsModal
                         offsets={offsets}
                         onSave={handleOffsetsChange}

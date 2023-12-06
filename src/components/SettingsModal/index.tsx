@@ -17,10 +17,10 @@ export const SettingsModal: React.FC<ISettingsModalProps> = ({
     const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
     const [inputValues, setInputValues] = useState<IOffsets>({});
 
-    const handleInputChange = (key: string, val: string) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues((v) => ({
             ...v,
-            [key]: val,
+            [e.target.name]: e.target.value,
         }));
     };
 
@@ -78,24 +78,22 @@ export const SettingsModal: React.FC<ISettingsModalProps> = ({
                     <div className={styles.info}>Offset timings:</div>
 
                     <div className={styles.content}>
-                        {Object.entries(offsets).map(([key]) => (
+                        {Object.keys(offsets).map((key) => (
                             <div key={key} className={styles.settingsItem}>
-                                <span>{key}</span>
+                                <span className={styles.settingsNamazName}>
+                                    {key}
+                                </span>
                                 <div className={styles.settingsItemRight}>
-                                    <span className={styles.currentOffset}>
-                                        current: {offsets[key]}
-                                    </span>
                                     <input
                                         type="number"
+                                        name={key}
                                         autoFocus={false}
                                         className={styles.settingsInput}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                key,
-                                                e.target.value
-                                            )
-                                        }
+                                        onChange={handleInputChange}
                                     />
+                                    <span className={styles.currentOffset}>
+                                        Current: {offsets[key]}
+                                    </span>
                                 </div>
                             </div>
                         ))}

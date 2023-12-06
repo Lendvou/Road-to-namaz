@@ -1,12 +1,19 @@
 import { useInstallButtonStyles } from "./styles";
+import { useEffect, useState } from "react";
 
-interface IInstallButtonProps {
-    installEvent: Event | null;
-}
+export const InstallButton = () => {
+    const [installEvent, setInstallEvent] = useState<Event | null>(null);
 
-export const InstallButton: React.FC<IInstallButtonProps> = ({
-    installEvent,
-}) => {
+    useEffect(() => {
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            setInstallEvent(e);
+        });
+        window.addEventListener("appinstalled", () => {
+            setInstallEvent(null);
+        });
+    }, []);
+
     const styles = useInstallButtonStyles();
 
     return installEvent &&
