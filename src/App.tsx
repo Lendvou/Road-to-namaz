@@ -1,116 +1,83 @@
 import { useEffect, useState } from "react";
-import {
-    getOffsetsFromStorage,
-    getTuneString,
-    saveOffsetsToStorage,
-} from "./utils";
+import { getOffsetsFromStorage, saveOffsetsToStorage } from "./utils";
 import { useStyles } from "./styles";
-import { IOffsets, transformDate } from "./utils";
+import { IOffsets } from "./utils";
 import { Time } from "./components/Time";
 import { Loader } from "./components/Loader";
 import { SettingsModal } from "./components/SettingsModal";
 import { Clock } from "./components/Clock";
 import { Header } from "./components/Header";
 import { InstallButton } from "./components/InstallButton";
+import { useFetchData } from "./useFetchData";
 
-export interface ITimings {
-    [key: string]: {
-        hours: number;
-        minutes: number;
-    };
-}
-export interface IDate {
-    day?: number;
-    weekday?: string;
-    month?: string;
-}
-
-interface IFetchResult {
-    timings: ITimings;
-    date: IDate;
+interface ITime {
+    hours: number;
+    minutes: number;
+    seconds: number;
 }
 
 function App() {
-    const [hours, setHours] = useState<number>(0);
-    const [minutes, setMinutes] = useState<number>(0);
-    const [seconds, setSeconds] = useState<number>(0);
+    const [time, setTime] = useState<ITime>({
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+    });
     const [offsets, setOffsets] = useState<IOffsets>(getOffsetsFromStorage());
-    const [fetchResult, setFetchResult] = useState<IFetchResult | null>(null);
 
     const handleOffsetsChange = (newOffsets: IOffsets) => {
         setOffsets(newOffsets);
         saveOffsetsToStorage(newOffsets);
     };
 
+    const { data, isLoading, error } = useFetchData({ offsets });
+
     useEffect(() => {
-        const setTime = () => {
+        const setCurrentTime = () => {
             const date = new Date();
-            setHours(date.getHours());
-            setMinutes(date.getMinutes());
-            setSeconds(date.getSeconds());
-        };
-        setTime();
-        const interval = setInterval(setTime, 1000);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const tuneString = getTuneString(offsets);
-
-            const { data } = await (
-                await fetch(
-                    `https://api.aladhan.com/v1/timingsByAddress?address=Makhachkala,RU&method=8&tune=${tuneString}`
-                )
-            ).json();
-            const result = {
-                Fajr: transformDate(data.timings.Fajr),
-                Dhuhr: transformDate(data.timings.Dhuhr),
-                Asr: transformDate(data.timings.Asr),
-                Maghrib: transformDate(data.timings.Maghrib),
-                Isha: transformDate(data.timings.Isha),
-            };
-            const dateObj: IDate = {
-                day: Number(data.date.gregorian.day),
-                month: data.date.gregorian.month.en,
-                weekday: data.date.gregorian.weekday.en,
-            };
-            setFetchResult({
-                timings: result,
-                date: dateObj,
+            setTime({
+                hours: date.getHours(),
+                minutes: date.getMinutes(),
+                seconds: date.getSeconds(),
             });
         };
-        fetchData();
-    }, [offsets]);
+
+        setCurrentTime();
+        const interval = setInterval(setCurrentTime, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const styles = useStyles();
     return (
         <div className={styles.container}>
-            <InstallButton />
+            <InstallButton isDisabled={!data} />
 
-            {!fetchResult ? (
+            {isLoading ? (
                 <Loader />
-            ) : (
+            ) : data ? (
                 <>
                     <SettingsModal
                         offsets={offsets}
                         onSave={handleOffsetsChange}
                     />
 
-                    <Header date={fetchResult.date} />
+                    <Header date={data.date} />
 
                     <Clock
-                        hours={hours}
-                        minutes={minutes}
-                        seconds={seconds}
-                        timings={fetchResult.timings}
+                        hours={time.hours}
+                        minutes={time.minutes}
+                        seconds={time.seconds}
+                        timings={data.timings}
                     />
 
-                    <Time hours={hours} minutes={minutes} seconds={seconds} />
+                    <Time
+                        hours={time.hours}
+                        minutes={time.minutes}
+                        seconds={time.seconds}
+                    />
                 </>
+            ) : (
+                <span className={styles.errorMessage}>{error}</span>
             )}
         </div>
     );

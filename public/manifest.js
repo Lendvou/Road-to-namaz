@@ -1,7 +1,7 @@
 export default {
     name: "Road to namaz",
     short_name: "Road to namaz",
-    description: "Desc",
+    description: "Check namaz timings in a clock fashion",
     theme_color: "#1B1B1F",
     background_color: "#1B1B1F",
     display: "standalone",
@@ -32,6 +32,36 @@ export default {
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",
+        },
+    ],
+    screenshots: [
+        {
+            src: "./icons/screen_1.png",
+            type: "image/png",
+            sizes: "353x745",
+            form_factor: "narrow",
+            label: "Clock",
+        },
+        {
+            src: "./icons/screen_2.png",
+            type: "image/png",
+            sizes: "353x745",
+            form_factor: "narrow",
+            label: "Settings",
+        },
+        {
+            src: "./icons/screen_wide_1.png",
+            type: "image/png",
+            sizes: "1280x745",
+            form_factor: "wide",
+            label: "Clock",
+        },
+        {
+            src: "./icons/screen_wide_2.png",
+            type: "image/png",
+            sizes: "1280x745",
+            form_factor: "wide",
+            label: "Settings",
         },
     ],
 };

@@ -1,7 +1,13 @@
 import { useInstallButtonStyles } from "./styles";
 import { useEffect, useState } from "react";
 
-export const InstallButton = () => {
+interface IInstallButtonProps {
+    isDisabled?: boolean;
+}
+
+export const InstallButton: React.FC<IInstallButtonProps> = ({
+    isDisabled = false,
+}) => {
     const [installEvent, setInstallEvent] = useState<Event | null>(null);
 
     useEffect(() => {
@@ -19,6 +25,7 @@ export const InstallButton = () => {
     return installEvent &&
         !window.matchMedia("(display-mode: standalone)").matches ? (
         <button
+            disabled={isDisabled}
             className={styles.installButton}
             onClick={() => (installEvent as any).prompt()}
         >

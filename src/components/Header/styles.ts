@@ -6,6 +6,7 @@ export const useHeaderStyles = createUseStyles({
         flexDirection: "column",
         alignItems: "center",
         marginBottom: "6rem",
+        marginTop: "1rem",
     },
     day: {
         fontSize: "1.5rem",

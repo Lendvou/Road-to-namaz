@@ -15,47 +15,7 @@ export const useStyles = createUseStyles({
         color: "white",
         overflow: "hidden",
     },
-    installButton: {
-        textTransform: "uppercase",
-        color: "white",
-        position: "absolute",
-        left: "4%",
-        top: "2%",
-        fontFamily: "Montserrat-semibold",
-        fontSize: "0.9rem",
-        outline: 0,
-        border: "none",
-    },
-    settingsButton: {
-        position: "absolute",
-        top: "2%",
-        right: "4%",
-        width: "24px",
-    },
-    currentDay: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "6rem",
-        // marginBottom: 110,
-        // color: primaryColor,
-    },
-    day: {
-        fontSize: "1.5rem",
-        marginBottom: 4,
-        fontFamily: "Montserrat-semibold",
-        "@media (min-width: 576px)": {
-            fontSize: "1.8rem",
-        },
-        "& > span": {
-            marginRight: 5,
-            marginLeft: 5,
-        },
-    },
-    weekDay: {
-        fontSize: "1rem",
-        "@media (min-width: 576px)": {
-            fontSize: "1.3rem",
-        },
+    errorMessage: {
+        color: "red",
     },
 });

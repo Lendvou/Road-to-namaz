@@ -43,4 +43,5 @@ export const getTuneString = (offsets: IOffsets) => {
 };
 
 export const primaryColor = "#00B489";
+export const secondaryColor = "#3C3C3C";
 export const bgColor = "#1B1B1F";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useHeaderStyles } from "./styles";
-import { IDate } from "../../App";
+import { IDate } from "../../useFetchData";
 
 interface IHeaderProps {
     date: IDate;
