@@ -73,9 +73,20 @@ export const useModalStyles = createUseStyles({
     },
     saveButton: {
         fontFamily: "Montserrat-semibold",
-        textTransform: "uppercase",
-        color: primaryColor,
-        alignSelf: "end",
+        fontSize: "0.8rem",
+        outline: 0,
+        borderRadius: 4,
+        padding: "7px 16px",
         border: "none",
+        backgroundColor: primaryColor,
+        textTransform: "uppercase",
+        color: "white",
+        cursor: "pointer",
+        transition: "0.2s",
+        alignSelf: "flex-end",
+
+        "&:hover": {
+            opacity: 0.8,
+        },
     },
 });
