@@ -2,7 +2,7 @@ import React from "react";
 import { useClockStyles } from "./styles";
 import clockLogo from "../../assets/images/Clock_12-59.svg";
 import { formatDate, getHoursPosition } from "../../utils";
-import { ITimings } from "../../App";
+import { ITimings } from "../../useFetchData";
 
 interface IClockProps {
     hours: number;

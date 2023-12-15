@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getOffsetsFromStorage, saveOffsetsToStorage } from "./utils";
-import { useStyles } from "./styles";
+import { useAppStyles } from "./styles";
 import { IOffsets } from "./utils";
 import { Time } from "./components/Time";
 import { Loader } from "./components/Loader";
@@ -47,7 +47,7 @@ function App() {
         return () => clearInterval(interval);
     }, []);
 
-    const styles = useStyles();
+    const styles = useAppStyles();
     return (
         <div className={styles.container}>
             <InstallButton isDisabled={!data} />

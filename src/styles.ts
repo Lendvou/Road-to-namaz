@@ -1,7 +1,7 @@
 import { createUseStyles } from "react-jss";
 import { bgColor } from "./utils";
 
-export const useStyles = createUseStyles({
+export const useAppStyles = createUseStyles({
     container: {
         paddingTop: "2rem",
         paddingBottom: "2rem",
