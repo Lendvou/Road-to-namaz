@@ -13,7 +13,7 @@ export const useModalStyles = createUseStyles({
     modal: {
         backgroundColor: bgColor,
         color: "white",
-        width: "80%",
+        width: "85%",
         borderRadius: 6,
     },
     closeButton: {

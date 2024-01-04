@@ -18,7 +18,7 @@ export default defineConfig({
                         urlPattern: new RegExp(
                             "^https://api.aladhan.com/v1/timingsByAddress"
                         ),
-                        handler: "NetworkFirst",
+                        handler: "CacheFirst",
                         options: {
                             networkTimeoutSeconds: 6,
                             cacheName: "api-cache",
