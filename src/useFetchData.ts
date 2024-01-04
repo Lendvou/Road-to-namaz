@@ -15,7 +15,7 @@ export interface IDate {
 
 interface IFetchData {
     timings: ITimings;
-    date: IDate;
+    currentDate: IDate;
 }
 
 interface IUseFetchDataOptions {
@@ -33,9 +33,12 @@ export const useFetchData = ({ offsets }: IUseFetchDataOptions) => {
             const tuneString = getTuneString(offsets);
 
             try {
+                const date = new Date();
                 const { data } = await (
                     await fetch(
-                        `https://api.aladhan.com/v1/timingsByAddress?address=Makhachkala,RU&method=8&tune=${tuneString}`
+                        `https://api.aladhan.com/v1/timingsByAddress/${date.getDay()}-${
+                            date.getMonth() + 1
+                        }-${date.getFullYear()}?address=Makhachkala,RU&method=8&tune=${tuneString}`
                     )
                 ).json();
                 const timings = {
@@ -45,12 +48,12 @@ export const useFetchData = ({ offsets }: IUseFetchDataOptions) => {
                     Maghrib: transformDate(data.timings.Maghrib),
                     Isha: transformDate(data.timings.Isha),
                 };
-                const date: IDate = {
+                const currentDate: IDate = {
                     day: Number(data.date.gregorian.day),
                     month: data.date.gregorian.month.en,
                     weekday: data.date.gregorian.weekday.en,
                 };
-                setFetchData({ timings, date });
+                setFetchData({ timings, currentDate });
                 setError("");
             } catch (e: any) {
                 setError(e.message);

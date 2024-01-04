@@ -61,7 +61,7 @@ function App() {
                         onSave={handleOffsetsChange}
                     />
 
-                    <Header date={data.date} />
+                    <Header date={data.currentDate} />
 
                     <Clock
                         hours={time.hours}
