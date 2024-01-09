@@ -36,7 +36,7 @@ export const useFetchData = ({ offsets }: IUseFetchDataOptions) => {
                 const date = new Date();
                 const { data } = await (
                     await fetch(
-                        `https://api.aladhan.com/v1/timingsByAddress/${date.getDay()}-${
+                        `https://api.aladhan.com/v1/timingsByAddress/${date.getDate()}-${
                             date.getMonth() + 1
                         }-${date.getFullYear()}?address=Makhachkala,RU&method=8&tune=${tuneString}`
                     )
